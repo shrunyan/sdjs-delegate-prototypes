@@ -48,15 +48,14 @@
 				<section>
 					<h2>What are we going to talk about?</h2>
 					<ol>
-						<li>Creating a delegate prototype</li>
-						<li>Using a factory to generate instances</li>
-						<li>Use our object without the "new" keyword construction of an instance</li>
+						<li class="fragment">Creating a delegate prototype</li>
+						<li class="fragment">Using a factory to generate instances</li>
+						<li class="fragment">Use our object without the `new` keyword construction of an instance</li>
 					</ol>
 				</section>
 
 				<section>
-					<h2>What is a delegate prototype?</h2>
-					<h3>Store.js</h3>
+					<h2>Store.js</h2>
 					<pre><code data-trim contenteditable>
 let Store = {
   data: {},
@@ -72,12 +71,10 @@ let Store = {
 export default Store
 					</code></pre>
 					<p><em>* Bonus points: use an observable as your data property</em></p>
-					<small>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</small>
 				</section>
 
 				<section>
-					<h2>How do I use my delegate prototype?</h2>
-					<h3>TimeStore.js</h3>
+					<h2>TimeStore.js</h2>
 					<pre><code data-trim contenteditable>
 
 import Store from './Store'
@@ -105,8 +102,7 @@ export default TimeStore()
 				</section>
 
 				<section>
-					<h2>How do I use this?</h2>
-					<h3>app.js</h3>
+					<h2>app.js</h2>
 					<pre><code data-trim contenteditable>
 import TimeStore from './TimeStore'
 
@@ -139,12 +135,20 @@ TimeStore.exists('now') // true
 				</section>
 
 				<section>
-					<h2>Thanks. @stuartrunyan</h2>
-					<h3>Shout Outs</h3>
+					<h2>Shout Outs</h2>
 					<ul>
-						<li>Eric Elliot: @EricElliot</li>
+						<li>@EricElliot</li>
 						<li>@getify</li>
 					</ul>
+					<p><small>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</small></p>
+					<aside class="notes">
+						<ul>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h1>Questions?</h1>
 					<aside class="notes">
 						<ul>
 						</ul>
