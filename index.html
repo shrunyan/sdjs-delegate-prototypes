@@ -49,28 +49,25 @@
 					<h2>What are we going to talk about?</h2>
 					<ol>
 						<li class="fragment">Creating a delegate prototype</li>
-						<li class="fragment">Using a factory to generate instances</li>
-						<li class="fragment">Use our object without the `new` keyword construction of an instance</li>
+						<li class="fragment">Using a factory to generate instances without the `new` keyword construction.</li>
+						<li class="fragment">Try it out!</li>
 					</ol>
 				</section>
 
 				<section>
 					<h2>Store.js</h2>
 					<pre><code data-trim contenteditable>
-let Store = {
-  data: {},
-  get: (key) => {
-    return this.data[key]
+export default {
+  get(key) {
+    return this[key]
   },
-  set: (key, el) => {
-    this.data[key] = el
-    return this.data[key]
+  set(key, val) {
+    this[key] = val
+    return this[key]
   }
 }
-
-export default Store
 					</code></pre>
-					<p><em>* Bonus points: use an observable as your data property</em></p>
+					<p class="fragment"><em>* Bonus points: Wrap your store in an observable</em></p>
 				</section>
 
 				<section>
@@ -81,22 +78,22 @@ import Store from './Store'
 
 function TimeStore () {
   return Object.assign(Object.create(Store), {
-    exists: (key) => {
-      return this.data[key] ? false : true
+    isSet(key) {
+      return this[key] ? true : false
     },
-    getEpoch: () => {},
-    getUTC: () => {}
+    getEpoch(key) {
+      return new Date(this.get(key)).getTime()
+    }
   })
 }
 
-export default TimeStore()
+export default TimeStore
 					</code></pre>
 					<aside class="notes">
 						<ul>
 							<li>Object.assign: This is the same as `_.extend()` or `$.extend()`</li>
-							<li>It is a new ES2015 feature and must be [polyfilled][1]</li>
-							<li>Object.create: ES5 // TODO explain this</li>
-							<li>This is our factory. // TODO explain a factory</li>
+							<li>Object.assign is a new ES2015 feature and must be [polyfilled][1]</li>
+							<li>Object.create: ES5</li>
 						</ul>
 					</aside>
 				</section>
@@ -106,16 +103,22 @@ export default TimeStore()
 					<pre><code data-trim contenteditable>
 import TimeStore from './TimeStore'
 
-TimeStore.exists('now') // false
-TimeStore.set('now', Date()) // timestamp
-TimeStore.get('now') // timestamp
-TimeStore.exists('now') // true
+let store = TimeStore()
+
+store.isSet('currentTime') // false
+store.set('currentTime', Date()) // timestamp
+store.isSet('currentTime') // true
+store.get('currentTime') // timestamp
+store.getEpoch('currentTime') // timestamp
 					</code></pre>
 
 					<aside class="notes">
 						<ul>
+							<li><a href="https://babeljs.io/repl/">Babel Repl</a></li>
+							<li>Explain different module styles</li>
 							<li>Show prototype chain in devtools</li>
 							<li>Factory allowed use of object with out `new` keyword</li>
+							<li>Import transpiliation issue. It's a reference, not immutable bindings. @see http://www.2ality.com/2015/07/es6-module-exports.html</li>
 						</ul>
 					</aside>
 				</section>
@@ -123,10 +126,16 @@ TimeStore.exists('now') // true
 				<section>
 					<h2>So what... Why do I care?</h2>
 					<ul>
-						<li class="fragment">decoupling</li>
-						<li class="fragment">SOLID???</li>
-						<li class="fragment">Avoid ES2015 `class`</li>
-						<li class="fragment">OLOO</li>
+						<li class="fragment"><a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)">SOLID</a>
+							<ul>
+								<li class="fragment">Single responsibility principle</li>
+								<li class="fragment">Open/closed principle</li>
+								<li class="fragment">Liskov substitution principle</li>
+								<li class="fragment">Interface segregation principle</li>
+								<li class="fragment">Dependency inversion principle</li>
+							</ul>
+						</li>
+						<li class="fragment">Re-enforces <a href="https://gist.github.com/getify/5572383">OLOO</a></li>
 					</ul>
 					<aside class="notes">
 						<ul>
@@ -135,10 +144,11 @@ TimeStore.exists('now') // true
 				</section>
 
 				<section>
-					<h2>Shout Outs</h2>
+					<h2>shout outs to...</h2>
 					<ul>
-						<li>@EricElliot</li>
+						<li>@_ericelliott</li>
 						<li>@getify</li>
+						<li>@addyosmani</li>
 					</ul>
 					<p><small>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</small></p>
 					<aside class="notes">
