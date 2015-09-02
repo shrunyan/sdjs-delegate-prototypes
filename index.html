@@ -46,17 +46,19 @@
 				</section>
 
 				<section>
-					<h2>What are we going to talk about?</h2>
-					<ol>
-						<li class="fragment">Creating a delegate prototype</li>
-						<li class="fragment">Using a factory to generate instances without the `new` keyword construction.</li>
-						<li class="fragment">Try it out!</li>
-					</ol>
+					<h2>What are we going to do?</h2>
+					<ul>
+						<li class="fragment">Define what will be our delegate prototype.</li>
+						<li class="fragment">Use a factory to generate object instances.</li>
+						<li class="fragment">Demonstrate usage.</li>
+						<p class="fragment"><em>* p.s. I'll be using ES6 syntax</em></p>
+					</ul>
 				</section>
 
 				<section>
 					<h2>Store.js</h2>
 					<pre><code data-trim contenteditable>
+// exports ES6 module
 export default {
   get(key) {
     return this[key]
@@ -73,10 +75,11 @@ export default {
 				<section>
 					<h2>TimeStore.js</h2>
 					<pre><code data-trim contenteditable>
-
 import Store from './Store'
 
 function TimeStore () {
+  // Object.assign concats our objects together
+  // Object.create sets Store as prototype of new object
   return Object.assign(Object.create(Store), {
     isSet(key) {
       return this[key] ? true : false
@@ -103,7 +106,7 @@ export default TimeStore
 					<pre><code data-trim contenteditable>
 import TimeStore from './TimeStore'
 
-let store = TimeStore()
+const store = TimeStore()
 
 store.isSet('currentTime') // false
 store.set('currentTime', Date()) // timestamp
@@ -114,8 +117,7 @@ store.getEpoch('currentTime') // timestamp
 
 					<aside class="notes">
 						<ul>
-							<li><a href="https://babeljs.io/repl/">Babel Repl</a></li>
-							<li>Explain different module styles</li>
+							<li><a href="https://babeljs.io/repl/#?experimental=true&evaluate=true&loose=false&spec=false&code=const%20Store%20%3D%20%7B%0A%20%20get(key)%20%7B%0A%20%20%20%20return%20this%5Bkey%5D%0A%20%20%7D%2C%0A%20%20set(key%2C%20val)%20%7B%0A%20%20%20%20this%5Bkey%5D%20%3D%20val%0A%20%20%20%20return%20this%5Bkey%5D%0A%20%20%7D%0A%7D%0A%0Afunction%20TimeStore%20()%20%7B%0A%20%20%2F%2F%20Object.assign%20concats%20our%20objects%20together%0A%20%20%2F%2F%20Object.create%20sets%20Store%20as%20prototype%20of%20new%20object%0A%20%20return%20Object.assign(Object.create(Store)%2C%20%7B%0A%20%20%20%20isSet(key)%20%7B%0A%20%20%20%20%20%20return%20this%5Bkey%5D%20%3F%20true%20%3A%20false%0A%20%20%20%20%7D%2C%0A%20%20%20%20getEpoch(key)%20%7B%0A%20%20%20%20%20%20return%20new%20Date(this.get(key)).getTime()%0A%20%20%20%20%7D%0A%20%20%7D)%0A%7D%0A%0Alet%20time%20%3D%20TimeStore()%0A%0Atime.isSet('currentTime')%0Atime.set('currentTime'%2C%20Date())%0Atime.isSet('currentTime')%0Atime.get('currentTime')%0Atime.getEpoch('currentTime')%0A%0Aconsole.log(time.getEpoch('currentTime'))">Babel Repl</a></li>
 							<li>Show prototype chain in devtools</li>
 							<li>Factory allowed use of object with out `new` keyword</li>
 							<li>Import transpiliation issue. It's a reference, not immutable bindings. @see http://www.2ality.com/2015/07/es6-module-exports.html</li>
@@ -126,16 +128,9 @@ store.getEpoch('currentTime') // timestamp
 				<section>
 					<h2>So what... Why do I care?</h2>
 					<ul>
-						<li class="fragment"><a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)">SOLID</a>
-							<ul>
-								<li class="fragment">Single responsibility principle</li>
-								<li class="fragment">Open/closed principle</li>
-								<li class="fragment">Liskov substitution principle</li>
-								<li class="fragment">Interface segregation principle</li>
-								<li class="fragment">Dependency inversion principle</li>
-							</ul>
-						</li>
-						<li class="fragment">Re-enforces <a href="https://gist.github.com/getify/5572383">OLOO</a></li>
+						<li class="fragment">Shared Functionality</li>
+						<li class="fragment">Smaller Interface to Test</li>
+						<li class="fragment">Simple <a href="https://gist.github.com/getify/5572383">OLOO</a> code</li>
 					</ul>
 					<aside class="notes">
 						<ul>
@@ -146,13 +141,14 @@ store.getEpoch('currentTime') // timestamp
 				<section>
 					<h2>shout outs to...</h2>
 					<ul>
-						<li>@_ericelliott</li>
-						<li>@getify</li>
-						<li>@addyosmani</li>
+						<li>@_ericelliott - <a href="https://medium.com/javascript-scene">JavaScript Scene</a></li>
+						<li>@getify - <a href="https://github.com/getify/You-Dont-Know-JS">YDKJS</a></li>
+						<li>@addyosmani - <a href="http://addyosmani.com/blog/essentialjsdesignpatterns/">Essential Design Patterns</a></li>
 					</ul>
 					<p><small>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</small></p>
 					<aside class="notes">
 						<ul>
+							<li>If interested in more information checkout articles from these people.</li>
 						</ul>
 					</aside>
 				</section>
