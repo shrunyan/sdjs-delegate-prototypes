@@ -1,13 +1,10 @@
 # Delegate Prototypes
 ## San Diego JavaScript Lightning Talk.
 
-@stuartrunyan
+[@stuartrunyan](https://twitter.com/stuartrunyan)
 
-1. Clone the repository
-
-	git clone git@github.com:shrunyan/sdjs-delegate-prototypes.git
-
-2. Then open index.html in your favorite browser.
+	1. Clone the repo: `git clone git@github.com:shrunyan/sdjs-delegate-prototypes.git`
+	2. Then open index.html in your favorite browser.
 
 ---
 
